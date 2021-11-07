@@ -38,8 +38,8 @@ public class ConfigureController {
             model.addAttribute("user", user);
             return "configure";
         } catch (Exception e) {
-            model.addAttribute("isFail", username + " doesn't exist");
-            return "index";
+            model.addAttribute("error", username + " doesn't exist");
+            return "error";
         }
     }
 
@@ -58,8 +58,8 @@ public class ConfigureController {
             password = "";
         }
         if (password.equals("") || email.equals("")) {
-            model.addAttribute("isFail", "Please fill in both the password and email field next time.");
-            return "index";
+            model.addAttribute("error", "Please fill in both the password and email field next time.");
+            return "error";
         }
         Query q = new Query().addCriteria(Criteria.where("email").is(email.replace("%40", "@")));
         User user = mongoTemplate.find(q, User.class).get(0);
@@ -81,8 +81,8 @@ public class ConfigureController {
             mongoTemplate.updateFirst(q, update, User.class);
 
         } else {
-            model.addAttribute("isFail", "Incorrect Password");
-            return "index";
+            model.addAttribute("error", "Incorrect Password");
+            return "error";
         }
         model.addAttribute("user", user);
         return "home";

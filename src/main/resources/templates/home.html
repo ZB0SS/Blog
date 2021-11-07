@@ -2,10 +2,79 @@
 <html xmlns:th="https://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <title th:text="${user.getUsername()} + '\'s profile'"></title>
 </head>
 <body>
+<div class="container top-div">
 
-    <h1 th:text="'Welcome ' + ${user.getFirstName()} + ' '+ ${user.getLastName()}"></h1>
+    <div class="row first-div">
+        <img th:src="${user.getAvatar()}" class="profile">
+        <h1 class="welcome-message" th:text="${user.getUsername()}"></h1>
+    </div>
+</div>
+
+<div class="container">
+<!--    <h1 th:text="'For ' + ${user.getFirstName()} + ' ' + ${user.getLastName()}"></h1>-->
+    <div class="row">
+        <div class="col-lg-3 col-sm-6 crd" th:each="blog: ${blogs}">
+            <div class="card bg-dark" style="width: 18rem;">
+                <img class="card-img-top" th:src="${blog.getBlogImage()}" alt="Card image cap">
+                <div class="card-body">
+                    <a class="card-title" th:text="${blog.getTitle()}" href="" style="font-size: 1.5rem; color: white;"></a>
+                    <p class="card-text" th:text="'A blog made by ' + ${blog.getAuthor()}"</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
+
+<style>
+    html, .container, body {
+        background-color: #22272e !important;
+        color: white;
+    }
+
+    .profile {
+        -webkit-border-radius: 100px;
+        -moz-border-radius: 100px;
+        border-radius: 100%;
+        width: 20%;
+    }
+
+    .welcome-message {
+        margin: auto;
+        margin-left: 5%;
+    }
+
+    .first-div {
+        margin: 5%;
+    }
+
+    #hr {
+        /* border: dotted black 6px;
+        border-bottom: none;
+        width: 80%;
+        margin: 100px auto; */
+        border: 0;
+        height: 1px;
+        width: 40%;
+        position: relative;
+        margin: 30px auto;
+        background: #39D1B4;
+    }
+
+    .row {
+        margin: 5%;
+    }
+    .crd {
+        margin: auto;
+    }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 </html>

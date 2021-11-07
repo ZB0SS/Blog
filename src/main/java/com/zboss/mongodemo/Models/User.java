@@ -14,7 +14,7 @@ public class User {
     private String id;
 
     @Field
-    @Indexed(unique = true)
+//    @Indexed(unique = true)
     private String email;
 
     @Field

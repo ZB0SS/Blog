@@ -1,6 +1,7 @@
 package com.zboss.mongodemo.Controllers;
 
 import com.zboss.mongodemo.Models.User;
+import com.zboss.mongodemo.Repositories.NewBlogRepository;
 import com.zboss.mongodemo.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -10,16 +11,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HomeController {
     private final UserRepository userRepository;
     private final MongoTemplate mongoTemplate;
+    private final NewBlogRepository blogRepository;
     @Autowired
-    public HomeController(UserRepository userRepository, MongoTemplate mongoTemplate) {
+    public HomeController(UserRepository userRepository, MongoTemplate mongoTemplate, NewBlogRepository blogRepository) {
         this.userRepository = userRepository;
         this.mongoTemplate = mongoTemplate;
+        this.blogRepository = blogRepository;
     }
 
     @GetMapping("/profile/{username}")
@@ -28,10 +30,11 @@ public class HomeController {
         try {
             User user = mongoTemplate.find(q, User.class).get(0);
             model.addAttribute("user", user);
+            model.addAttribute("blogs", blogRepository.findAll());
             return "home";
         } catch (Exception e) {
-            model.addAttribute("isFail", username + " doesn't exist");
-            return "index";
+            model.addAttribute("error", username + " doesn't exist");
+            return "error";
         }
     }
 }

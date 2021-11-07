@@ -1,0 +1,41 @@
+html, .container, body {
+    background-color: #22272e !important;
+    color: white;
+}
+
+.profile {
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    border-radius: 100%;
+    width: 20%;
+}
+
+.welcome-message {
+    margin: auto;
+    margin-left: 5%;
+}
+
+.first-div {
+    margin: 5%;
+}
+
+#hr {
+    /* border: dotted black 6px;
+    border-bottom: none;
+    width: 80%;
+    margin: 100px auto; */
+    border: 0;
+    height: 1px;
+    width: 40%;
+    position: relative;
+    margin: 30px auto;
+    background: #39D1B4;
+}
+
+.row {
+    margin: 5%;
+}
+.crd {
+    margin: 1%;
+}
+
