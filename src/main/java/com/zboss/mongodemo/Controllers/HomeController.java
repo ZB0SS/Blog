@@ -44,7 +44,13 @@ public class HomeController {
                 NewBlog z;
                 try {
                     l = blogList.get(k + 1);
-                    z = blogList.get(k + 2);
+                    try {
+                        z = blogList.get(k + 2);
+                    } catch (Exception e) {
+                        NewBlog[] x = {j, l};
+                        listOfLists.add(new ArrayList<>(List.of(x)));
+                        break;
+                    }
                 } catch (Exception e) {
                     NewBlog[] x = {j};
                     listOfLists.add(new ArrayList<>(List.of(x)));
