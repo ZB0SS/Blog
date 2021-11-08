@@ -5,9 +5,12 @@ import com.zboss.mongodemo.Repositories.NewBlogRepository;
 import com.zboss.mongodemo.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -58,6 +61,20 @@ public class BlogController {
             model.addAttribute("error", title + " is already an existing blog title");
             return "error";
         }
-        return "createBlog";
+        model.addAttribute("blog", blog);
+        return "blog";
+    }
+
+    @GetMapping("/blog/{title}")
+    String blog(@PathVariable("title") String title, Model model) {
+        Query q = new Query(Criteria.where("title").is(title));
+        if (mongoTemplate.find(q, NewBlog.class).size() > 0) {
+            NewBlog  blog = mongoTemplate.find(q, NewBlog.class).get(0);
+            model.addAttribute("blog", blog);
+            return "blog";
+        } else {
+            model.addAttribute("error", "No blog titled " + title);
+            return "error";
+        }
     }
 }
