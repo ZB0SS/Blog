@@ -20,7 +20,7 @@
 
 <div class="container">
 <!--    <h1 th:text="'For ' + ${user.getFirstName()} + ' ' + ${user.getLastName()}"></h1>-->
-    <div class="row">
+    <div class="row" th:each="blogs: ${lists}">
         <div class="col-lg-3 col-sm-6 crd" th:each="blog: ${blogs}">
             <div class="card bg-dark" style="width: 18rem;">
                 <img class="card-img-top" th:src="${blog.getBlogImage()}" alt="Card image cap" width="286" height="209">
