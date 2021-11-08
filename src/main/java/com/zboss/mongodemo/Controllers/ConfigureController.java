@@ -85,7 +85,7 @@ public class ConfigureController {
             return "error";
         }
         model.addAttribute("user", user);
-        return "home";
+        return "redirect:/profile/" + user.getUsername();
     }
 
 
